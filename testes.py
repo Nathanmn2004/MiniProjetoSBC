@@ -63,6 +63,26 @@ def caso_hipoxemia():
     )
 
 
+def caso_dor():
+    """
+    Caso 3 – Pneumonia grave com hipoxemia (máxima prioridade).
+
+    Encadeamento esperado (3 níveis completos):
+      Nível 1: febre + tosse + dor_muscular + falta_de_ar + Exame(oximetria, baixa)
+      Nível 2: R01 → SindromeGripal  |  R03 → AlertaOxigenio
+      Nível 3: R09 (salience=20) → Hipoxemia + Pneumonia Grave
+
+    Resolução de conflito:
+      - R09 (salience=20) tem precedência sobre R07 (salience=9).
+      - NOT(AlertaOxigenio()) em R07 garante que Pneumonia simples NÃO seja
+        inferida simultaneamente com Hipoxemia grave.
+    """
+    executar_caso(
+        nome_caso="Caso 4 - Dor geral",
+        sintomas=["dor_muscular", "tosse",],
+        exames=[("oximetria", "baixa")],
+    )
+
 # Permite rodar os testes diretamente: python testes.py
 if __name__ == "__main__":
     caso_gripe()

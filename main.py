@@ -10,7 +10,7 @@ Uso:
 
 import sys
 from motor import executar_caso
-from testes import caso_gripe, caso_resfriado, caso_hipoxemia
+from testes import caso_gripe, caso_resfriado, caso_hipoxemia, caso_dor
 
 def main():
     # ── Modo CLI: sintomas passados como argumentos ──────────────────
@@ -32,6 +32,7 @@ def main():
     caso_gripe()
     caso_resfriado()
     caso_hipoxemia()
+    caso_dor()
  
     print("\nTodos os casos executados.")
  
