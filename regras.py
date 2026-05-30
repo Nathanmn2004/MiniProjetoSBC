@@ -1,10 +1,8 @@
 """
-regras.py — Motor de inferência SEM uso de decorator @Rule.
+regras.py — Definição das regras de inferência do SBC.
 
 As regras são registradas explicitamente com a sintaxe:
     nome_metodo = Rule(condicoes...)(nome_metodo)
-
-Isso é exatamente o que o @ faz por baixo dos panos.
 
 Encadeamento em 3 níveis:
   Nível 1 → 2 : R01, R02, R03, R04  (sintomas → síndromes intermediárias)

@@ -12,30 +12,10 @@
 ```
 sbc_respiratorio/
 ├── fatos.py    — classes Fact: Sintoma, Exame, HistoricoMedico, Diagnostico e intermediários
-├── regras.py   — KnowledgeEngine com as 10 regras IF-THEN (sem uso de decorator @)
+├── regras.py   — KnowledgeEngine com as 10 regras IF-THEN
 ├── motor.py    — função executar_caso() com trace completo
 ├── testes.py   — 3 funções de teste (caso_gripe, caso_resfriado, caso_hipoxemia)
 └── main.py     — ponto de entrada; roda os testes ou aceita sintomas via CLI
-```
-
-### Como as regras são registradas
-
-O projeto não usa o decorator `@Rule`. Em vez disso, cada regra é registrada explicitamente com a sintaxe `Rule(...)(função)` — que é exatamente o que o `@` faz por baixo dos panos:
-
-```python
-# Com decorator (forma usual)
-@Rule(Sintoma(nome="febre"), Sintoma(nome="tosse"))
-def r01_sindrome_gripal(self):
-    ...
-
-# Sem decorator (forma usada neste projeto — resultado idêntico)
-def r01_sindrome_gripal(self):
-    ...
-
-r01_sindrome_gripal = Rule(
-    Sintoma(nome="febre"),
-    Sintoma(nome="tosse"),
-)(r01_sindrome_gripal)
 ```
 
 ---
@@ -249,7 +229,6 @@ Nível 3:           Hipoxemia + Pneumonia Grave
 | **Base de Conhecimento** | A classe [DiagnosticoRespiratorio](file:///d:/SBC/Miniteste%2001/regras.py#L27) e suas 10 regras no arquivo [regras.py](file:///d:/SBC/Miniteste%2001/regras.py) |
 | **Memória de Trabalho** | Os fatos do paciente em execução (`engine.facts`), instanciados de [fatos.py](file:///d:/SBC/Miniteste%2001/fatos.py) e inseridos via `declare()` |
 | Encadeamento para frente (3 níveis) | R01→R05, R03→R09, R01+R03→R09 |
-| Regras sem decorator `@` | todo o arquivo `regras.py` |
 | Salience (resolução de conflito) | R09 > R08 > R10 > R05/R07 > R06 > R01–R04 |
 | NOT (negação de fato) | R06 (sem febre), R07 (sem AlertaOxigenio), R04 (sem duplicata) |
 | Fatos intermediários | SindromeGripal, SindromeObstrutiva, AlertaOxigenio |
