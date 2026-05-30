@@ -1,7 +1,9 @@
 # SBC – Diagnóstico de Doenças Respiratórias
 
 > Sistema Baseado em Conhecimento implementado com **experta** (Python).  
-> Trabalho da disciplina de Inteligência Artificial — UFPB.
+
+- Nathan Meira Nóbrega
+- Miguel Lisboa
 
 ---
 
@@ -43,6 +45,26 @@ r01_sindrome_gripal = Rule(
 O sistema realiza **triagem clínica de condições respiratórias** com base em sintomas relatados pelo paciente, resultados de exames e histórico médico. O objetivo é apoiar profissionais de saúde na identificação de hipóteses diagnósticas (gripe, resfriado, pneumonia, asma, DPOC) e sugerir condutas clínicas iniciais.
 
 O motor utiliza **encadeamento para frente** (*forward chaining*): a partir dos fatos inseridos (sintomas e exames), o sistema infere fatos intermediários e, a partir deles, produz o diagnóstico final.
+
+---
+
+## Mapeamento dos Componentes do SBC
+
+Este projeto foi construído respeitando rigorosamente a divisão clássica de um Sistema Baseado em Conhecimento (SBC):
+
+1. **Motor de Inferência (Inference Engine)**
+   * **Onde está no código:** É o próprio framework **experta**
+   * **Função:** Implementa o algoritmo **Rete** para realizar o *pattern matching* (casamento de padrões) eficiente entre os fatos e as regras, gerencia a agenda ativa de regras (resolvendo conflitos através de propriedades como `salience` e `NOT`), e executa o ciclo de inferência em **encadeamento para frente** (*forward chaining*).
+
+2. **Base de Conhecimento (Knowledge Base)**
+   * **Onde está no código:** No arquivo [regras.py]
+   * **Função:** Define a classe [DiagnosticoRespiratorio] (que herda de `KnowledgeEngine`), onde residem as **10 regras de produção (regras IF-THEN)** declaradas explicitamente com a sintaxe `Rule(...)(função)`. Esta base de conhecimento codifica a expertise clínica do domínio.
+
+3. **Memória de Trabalho (Working Memory)**
+   * **Onde está no código:** Representada pela agenda dinâmica de fatos mantida em tempo de execução pela instância do motor (`engine.facts`).
+   * **Função:** Armazena temporariamente os fatos conhecidos:
+     * É inicializada (após um `engine.reset()`) com fatos de entrada que definem o perfil do paciente, sendo instâncias das classes [Sintoma], [Exame] e [HistoricoMedico] importadas de [fatos.py]
+     * É modificada dinamicamente pelo disparo das regras, adicionando novos fatos intermediários de diagnóstico, como [SindromeGripal], [SindromeObstrutiva] ou [AlertaOxigenio], e consequentemente o fato de saída final [Diagnostico]
 
 ---
 
@@ -221,8 +243,11 @@ Nível 3:           Hipoxemia + Pneumonia Grave
 
 ## Conceitos demonstrados
 
-| Conceito | Onde aparece |
-|----------|-------------|
+| Conceito | Onde aparece / Como se comporta |
+|----------|---------------------------------|
+| **Motor de Inferência** | O framework `experta` (e a chamada [engine.run()](file:///d:/SBC/Miniteste%2001/motor.py#L52) no arquivo [motor.py](file:///d:/SBC/Miniteste%2001/motor.py)) |
+| **Base de Conhecimento** | A classe [DiagnosticoRespiratorio](file:///d:/SBC/Miniteste%2001/regras.py#L27) e suas 10 regras no arquivo [regras.py](file:///d:/SBC/Miniteste%2001/regras.py) |
+| **Memória de Trabalho** | Os fatos do paciente em execução (`engine.facts`), instanciados de [fatos.py](file:///d:/SBC/Miniteste%2001/fatos.py) e inseridos via `declare()` |
 | Encadeamento para frente (3 níveis) | R01→R05, R03→R09, R01+R03→R09 |
 | Regras sem decorator `@` | todo o arquivo `regras.py` |
 | Salience (resolução de conflito) | R09 > R08 > R10 > R05/R07 > R06 > R01–R04 |
@@ -231,5 +256,3 @@ Nível 3:           Hipoxemia + Pneumonia Grave
 | Separação por módulos | fatos / regras / motor / testes / main |
 
 ---
-
-*Disciplina: Inteligência Artificial — UFPB, 2025.*
