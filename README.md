@@ -119,9 +119,7 @@ ufc-risco-nocaute-fuzzy/
 │   ├── fuzzy_controller.py
 │   ├── variables.py
 │   └── rules.py
-│
-└── docs/
-    └── explicacao_modelo.md
+
 ```
 
 ---
