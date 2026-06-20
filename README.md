@@ -121,8 +121,8 @@ ufc-risco-nocaute-fuzzy/
 │   ├── variables.py
 │   └── rules.py
 │
-└── imgs/
-    └── poatan.jfif
+└── docs/
+    └── explicacao_modelo.md
 ```
 
 ---
