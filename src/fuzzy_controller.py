@@ -1,15 +1,16 @@
 from skfuzzy import control as ctrl
-from variables import criar_variaveis
+
 from rules import criar_regras
+from variables import criar_variaveis
 
 
 def classificar_risco(valor):
-    if valor < 40:
+    if valor < 35:
         return "Baixo"
-    elif valor < 70:
-        return "Médio"
-    else:
-        return "Alto"
+    if valor < 68:
+        return "Medio"
+
+    return "Alto"
 
 
 def calcular_risco_nocaute(valor_dano, valor_fadiga):
@@ -19,12 +20,12 @@ def calcular_risco_nocaute(valor_dano, valor_fadiga):
     sistema_controle = ctrl.ControlSystem(regras)
     simulador = ctrl.ControlSystemSimulation(sistema_controle)
 
-    simulador.input['dano'] = valor_dano
-    simulador.input['fadiga'] = valor_fadiga
+    simulador.input["dano"] = valor_dano
+    simulador.input["fadiga"] = valor_fadiga
 
     simulador.compute()
 
-    resultado = simulador.output['risco']
+    resultado = simulador.output["risco"]
     classificacao = classificar_risco(resultado)
 
     return resultado, classificacao

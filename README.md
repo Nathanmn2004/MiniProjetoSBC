@@ -103,6 +103,7 @@ O sistema utiliza nove regras fuzzy para cobrir completamente o espaço de entra
 * NumPy
 * Scikit-Fuzzy
 * Matplotlib
+* Pillow
 
 ---
 
@@ -120,8 +121,8 @@ ufc-risco-nocaute-fuzzy/
 │   ├── variables.py
 │   └── rules.py
 │
-└── docs/
-    └── explicacao_modelo.md
+└── imgs/
+    └── poatan.jfif
 ```
 
 ---
@@ -150,6 +151,14 @@ Execute o programa principal:
 ```bash
 python src/main.py
 ```
+
+O programa abre uma interface grafica integrada com:
+
+* campos e barras para inserir dano recebido e fadiga;
+* botao para calcular o risco de nocaute;
+* exibicao automatica da primeira imagem encontrada na pasta `imgs/`.
+
+Formatos de imagem aceitos: `.png`, `.jpg`, `.jpeg`, `.jfif`, `.webp` e `.bmp`.
 
 Exemplo:
 
