@@ -16,8 +16,8 @@ def criar_variaveis():
     fadiga['media'] = fuzz.trimf(fadiga.universe, [2, 5, 8])
     fadiga['alta'] = fuzz.trimf(fadiga.universe, [6, 10, 10])
 
-    risco['baixo'] = fuzz.trimf(risco.universe, [0, 0, 40])
-    risco['medio'] = fuzz.trimf(risco.universe, [30, 50, 70])
+    risco['baixo'] = fuzz.trimf(risco.universe, [0, 0, 35])
+    risco['medio'] = fuzz.trimf(risco.universe, [30, 50, 68])
     risco['alto'] = fuzz.trimf(risco.universe, [60, 100, 100])
 
     return dano, fadiga, risco
